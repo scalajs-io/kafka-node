@@ -3,7 +3,7 @@ package io.scalajs.npm.kafkanode
 import io.scalajs.nodejs.fs.Fs
 import io.scalajs.nodejs.readline.{Readline, ReadlineOptions}
 import io.scalajs.nodejs.{Error, console, process}
-import io.scalajs.util.ScalaJsHelper._
+import io.scalajs.util.PromiseHelper._
 import org.scalatest.FunSpec
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue

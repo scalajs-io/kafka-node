@@ -1,7 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import io.scalajs.nodejs.{console, process}
-import io.scalajs.util.ScalaJsHelper._
+import io.scalajs.util.PromiseHelper._
 import org.scalatest.FunSpec
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
