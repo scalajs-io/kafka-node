@@ -5,7 +5,7 @@ import sbt._
 
 import scala.language.postfixOps
 
-val apiVersion = "1.3.4"
+val apiVersion = "1.3.4-2"
 val scalaJsVersion = "2.12.1"
 
 homepage := Some(url("https://github.com/scalajs.io/kafka-node"))
