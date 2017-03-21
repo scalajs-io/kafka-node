@@ -74,7 +74,7 @@ consumer.onError((error: js.Any) => {
 To add the `KafkaNode` binding to your project, add the following to your build.sbt:  
 
 ```sbt
-libraryDependencies += "io.scalajs.npm" %%% "kafka-node" % "1.3.4-3"
+libraryDependencies += "io.scalajs.npm" %%% "kafka-node" % "1.3.4-4"
 ```
 
 Optionally, you may add the Sonatype Repository resolver:
