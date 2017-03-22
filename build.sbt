@@ -5,7 +5,7 @@ import sbt._
 
 import scala.language.postfixOps
 
-val apiVersion = "1.3.4-4"
+val apiVersion = "0.4.0-pre1"
 val scalaJsVersion = "2.12.1"
 
 homepage := Some(url("https://github.com/scalajs.io/kafka-node"))
@@ -26,7 +26,7 @@ lazy val root = (project in file(".")).
       "org.scala-lang" % "scala-reflect" % scalaJsVersion,
       "org.scalatest" %%% "scalatest" % "3.0.1" % "test",
       "io.scalajs" %%% "nodejs" % scalaJsIOVersion,
-      "io.scalajs.npm" %%% "node-zookeeper-client" % "0.2.2"
+      "io.scalajs.npm" %%% "node-zookeeper-client" % scalaJsIOVersion
     ))
 
 /////////////////////////////////////////////////////////////////////////////////
