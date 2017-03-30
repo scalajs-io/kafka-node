@@ -1,6 +1,6 @@
 {
   "name": "kafka-node-sjs",
-  "version": "0.4.0-pre1",
+  "version": "0.4.0-pre2",
   "private": true,
   "dependencies": {
     "kafka-node": "^1.3.4",
