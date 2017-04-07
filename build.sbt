@@ -5,10 +5,10 @@ import sbt._
 
 import scala.language.postfixOps
 
-val apiVersion = "0.4.0-pre2"
+val apiVersion = "0.4.0-pre3"
 val scalaJsVersion = "2.12.1"
 
-homepage := Some(url("https://github.com/scalajs.io/kafka-node"))
+homepage := Some(url("https://github.com/scalajs-io/kafka-node"))
 
 lazy val root = (project in file(".")).
   enablePlugins(ScalaJSPlugin).
@@ -44,7 +44,7 @@ lazy val publishingSettings = Seq(
       Some("releases" at nexus + "service/local/staging/deploy/maven2")
   },
   pomExtra :=
-    <url>https://github.com/ldaniels528/scalajs-node-npm</url>
+    <url>https://github.com/scalajs-io/kafka-node</url>
       <licenses>
         <license>
           <name>MIT License</name>
