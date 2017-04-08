@@ -1,7 +1,7 @@
 package io.scalajs.npm
 
 import io.scalajs.nodejs.Error
-import io.scalajs.util.PromiseHelper.promiseWithError1
+import io.scalajs.util.PromiseHelper._
 
 import scala.concurrent.Promise
 import scala.scalajs.js
@@ -22,7 +22,7 @@ package object kafkanode {
       * @see [[Client.close()]]
       */
     @inline
-    def closeAsync(): Promise[js.Any] = promiseWithError1[Error, js.Any](client.close)
+    def closeAsync(): Promise[Unit] = promiseWithError0[Error](client.close)
 
   }
 
@@ -36,14 +36,17 @@ package object kafkanode {
       * @see [[Consumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
+    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] = {
+      promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
+    }
 
     /**
       * @see [[Consumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String): Promise[js.Any] = promiseWithError1[Error, js.Any](consumer.addTopics(topics, _))
+    def addTopicsAsync(topics: String): Promise[js.Any] = {
+      promiseWithError1[Error, js.Any](consumer.addTopics(topics, _))
+    }
 
     /**
       * @see [[Consumer.close()]]
@@ -61,14 +64,15 @@ package object kafkanode {
       * @see [[Consumer.removeTopics()]]
       */
     @inline
-    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] =
-    promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
+    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] = {
+      promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
+    }
 
     /**
       * @see [[Consumer.on()]]
       */
     @inline
-    def onError(callback: js.Function): consumer.type = consumer.on("error", callback)
+    def onError(callback: js.Function1[Error, Any]): consumer.type = consumer.on("error", callback)
 
     /**
       * @see [[Consumer.on()]]
@@ -95,8 +99,9 @@ package object kafkanode {
       * @see [[HighLevelConsumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
+    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] = {
+      promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
+    }
 
     /**
       * @see [[HighLevelConsumer.addTopics()]]
@@ -109,27 +114,27 @@ package object kafkanode {
       * @see [[HighLevelConsumer.close()]]
       */
     @inline
-    def closeAsync: Promise[js.Any] = promiseWithError1[Error, js.Any](consumer.close)
+    def closeAsync: Promise[Unit] = promiseWithError0[Error](consumer.close)
 
     /**
       * @see [[HighLevelConsumer.close()]]
       */
     @inline
-    def closeAsync(force: Boolean): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](consumer.close(force, _))
+    def closeAsync(force: Boolean): Promise[Unit] = promiseWithError0[Error](consumer.close(force, _))
 
     /**
       * @see [[HighLevelConsumer.commit()]]
       */
     @inline
-    def commitAsync[T <: js.Any]: Promise[T] = promiseWithError1[Error, T](consumer.commit)
+    def commitAsync[A]: Promise[A] = promiseWithError1[Error, A](consumer.commit)
 
     /**
       * @see [[HighLevelConsumer.removeTopics()]]
       */
     @inline
-    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] =
-    promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
+    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] = {
+      promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
+    }
 
     /**
       * @example consumer.on('error', function (message) {})
@@ -164,14 +169,17 @@ package object kafkanode {
       * @see [[HighLevelProducer.createTopics()]]
       */
     @inline
-    def createTopicsAsync(topics: js.Array[String], async: Boolean): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](producer.createTopics(topics, async, _))
+    def createTopicsAsync(topics: js.Array[String], async: Boolean): Promise[Unit] = {
+      promiseWithError0[Error](producer.createTopics(topics, async, _))
+    }
 
     /**
       * @see [[HighLevelProducer.send()]]
       */
     @inline
-    def sendAsync(payloads: js.Array[Payload]): Promise[js.Any] = promiseWithError1[Error, js.Any](producer.send(payloads, _))
+    def sendAsync(payloads: js.Array[ProduceRequest]): Promise[Unit] = {
+      promiseWithError0[Error](producer.send(payloads, _))
+    }
 
     /**
       * @see [[HighLevelProducer.on()]]
@@ -197,14 +205,15 @@ package object kafkanode {
       * @see [[Offset.commit()]]
       */
     @inline
-    def commitAsync(groupId: String, payloads: js.Array[Payload]): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](offset.commit(groupId, payloads, _))
+    def commitAsync(groupId: String, payloads: js.Array[Payload]): Promise[js.Any] = {
+      promiseWithError1[Error, js.Any](offset.commit(groupId, payloads, _))
+    }
 
     /**
       * @see [[Offset.fetch()]]
       */
     @inline
-    def fetchAsync[T](payloads: js.Array[Payload]): Promise[T] = {
+    def fetchAsync[T](payloads: js.Array[FetchRequest]): Promise[T] = {
       promiseWithError1[Error, T](offset.fetch(payloads, _))
     }
 
@@ -212,8 +221,9 @@ package object kafkanode {
       * @see [[Offset.fetchCommits()]]
       */
     @inline
-    def fetchCommitsAsync(groupId: String, payloads: js.Array[Payload]): Promise[js.Any] =
-    promiseWithError1[Error, js.Any](offset.fetchCommits(groupId, payloads, _))
+    def fetchCommitsAsync(groupId: String, payloads: js.Array[FetchRequest]): Promise[js.Any] = {
+      promiseWithError1[Error, js.Any](offset.fetchCommits(groupId, payloads, _))
+    }
 
   }
 
@@ -227,7 +237,7 @@ package object kafkanode {
       * @see [[Producer.on()]]
       */
     @inline
-    def onError(callback: js.Function): producer.type = producer.on("error", callback)
+    def onError(callback: js.Function1[Error, Any]): producer.type = producer.on("error", callback)
 
     /**
       * @see [[Producer.on()]]
@@ -239,7 +249,7 @@ package object kafkanode {
       * @see [[Producer.createTopics()]]
       */
     @inline
-    def createTopicsFuture(topics: js.Array[String], async: Boolean): Promise[js.Any] = {
+    def createTopicsAsync(topics: js.Array[String], async: Boolean): Promise[js.Any] = {
       promiseWithError1[Error, js.Any](producer.createTopics(topics, async, _))
     }
 
@@ -247,8 +257,8 @@ package object kafkanode {
       * @see [[Producer.send()]]
       */
     @inline
-    def sendFuture(payloads: js.Array[Payload]): Promise[js.Any] = {
-      promiseWithError1[Error, js.Any](producer.send(payloads, _))
+    def sendAsync(payloads: js.Array[ProduceRequest]): Promise[Unit] = {
+      promiseWithError0[Error](producer.send(payloads, _))
     }
 
   }

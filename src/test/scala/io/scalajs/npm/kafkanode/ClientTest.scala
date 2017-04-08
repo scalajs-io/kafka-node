@@ -1,7 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import io.scalajs.nodejs.{console, process}
-import io.scalajs.util.PromiseHelper._
+import io.scalajs.util.PromiseHelper.Implicits._
 import org.scalatest.FunSpec
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -25,7 +25,7 @@ class ClientTest extends FunSpec {
           val client = new Client(zkConnect)
 
           val producer = new Producer(client)
-          producer.createTopicsFuture(topics = js.Array(topic), async = true) foreach { _ =>
+          producer.createTopicsAsync(topics = js.Array(topic), async = true) foreach { _ =>
             console.log(s"Created topic $topic")
           }
 
@@ -48,9 +48,9 @@ class ClientTest extends FunSpec {
             console.log("message: %j", message)
           })
 
-          consumer.onError((error: js.Any) => {
+          consumer.onError { error =>
             console.log("error: %j", error)
-          })
+          }
       }
     }
 

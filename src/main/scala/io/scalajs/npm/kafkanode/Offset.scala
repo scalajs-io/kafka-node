@@ -22,11 +22,11 @@ class Offset(client: Client) extends IEventEmitter {
   /**
     * @example fetch(payloads, callback)
     */
-  def fetch[A](payloads: js.Array[Payload], callback: js.Function2[Error, A, Any]): Unit = js.native
+  def fetch[A](payloads: js.Array[FetchRequest], callback: js.Function2[Error, A, Any]): Unit = js.native
 
   /**
     * @example fetchCommits(groupid, payloads, callback)
     */
-  def fetchCommits(groupId: String, payloads: js.Array[Payload], callback: js.Function): Unit = js.native
+  def fetchCommits(groupId: String, payloads: js.Array[FetchRequest], callback: js.Function): Unit = js.native
 
 }

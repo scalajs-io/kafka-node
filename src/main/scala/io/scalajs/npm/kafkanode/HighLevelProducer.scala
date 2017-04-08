@@ -1,6 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import io.scalajs.RawOptions
+import io.scalajs.nodejs.Error
 import io.scalajs.nodejs.events.IEventEmitter
 
 import scala.scalajs.js
@@ -28,6 +29,6 @@ class HighLevelProducer(client: Client, options: ProducerOptions | RawOptions = 
   /**
     * @example send(payloads, callback)
     */
-  def send(payloads: js.Array[Payload], callback: js.Function): Unit = js.native
+  def send(payloads: js.Array[ProduceRequest], callback: js.Function1[Error, Any]): Unit = js.native
 
 }

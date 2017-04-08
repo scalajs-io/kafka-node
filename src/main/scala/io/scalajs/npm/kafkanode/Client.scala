@@ -1,6 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import io.scalajs.RawOptions
+import io.scalajs.nodejs.Error
 import io.scalajs.nodejs.events.IEventEmitter
 import io.scalajs.npm.nzc
 import io.scalajs.npm.nzc.ClientOptions
@@ -37,7 +38,7 @@ class Client(connectionString: String,
     * Closes the connection to Zookeeper and the brokers so that the node process can exit gracefully.
     * @param callback the callback
     */
-  def close(callback: js.Function = js.native): Unit = js.native
+  def close(callback: js.Function1[Error, Any] = js.native): Unit = js.native
 
 }
 

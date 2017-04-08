@@ -3,7 +3,8 @@ package io.scalajs.npm.kafkanode
 import io.scalajs.nodejs.fs.Fs
 import io.scalajs.nodejs.readline.{Readline, ReadlineOptions}
 import io.scalajs.nodejs.{Error, console, process}
-import io.scalajs.util.PromiseHelper._
+import io.scalajs.util.PromiseHelper.Implicits._
+import io.scalajs.util.ScalaJsHelper._
 import org.scalatest.FunSpec
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -28,7 +29,7 @@ class ProducerTest extends FunSpec {
           val producer = new Producer(client)
           val payloads = js.Array(
             (1 to 10000) map (n =>
-              new Payload(
+              new ProduceRequest(
                 topic = topic,
                 messages = s"I've sent you $n notices. Final notice.",
                 partition = n % 10
@@ -38,9 +39,8 @@ class ProducerTest extends FunSpec {
           producer.on("ready", () => {
             console.log("Received ready:")
 
-            producer.send(payloads, (err: Error, data: js.Any) => {
-              console.log("Received data:")
-              console.log(data)
+            producer.send(payloads, err => {
+              if (isDefined(err)) console.error(err)
             })
           })
 
@@ -77,8 +77,8 @@ class ProducerTest extends FunSpec {
               lineNo += 1
               console.log("[%d] %s", lineNo, line)
 
-              val payloads = js.Array(new Payload(topic = topic, messages = line))
-              producer.sendFuture(payloads) foreach { _ =>
+              val payloads = js.Array(new ProduceRequest(topic = topic, messages = line))
+              producer.sendAsync(payloads) foreach { _ =>
                 console.log("messages", payloads)
               }
             }
@@ -124,7 +124,7 @@ class ProducerTest extends FunSpec {
           val producer = new Producer(client)
 
           val payloads = js.Array(
-            new Payload(
+            new ProduceRequest(
               topic = "test",
               messages = "This is the First Message I am sending",
               partition = 1
@@ -134,18 +134,18 @@ class ProducerTest extends FunSpec {
           producer.onReady(() => {
             console.log("Received ready:")
 
-            producer.sendFuture(payloads) foreach { data =>
+            producer.sendAsync(payloads) foreach { data =>
               console.log("Received data:")
               console.log(data)
               client.close()
             }
           })
 
-          producer.onError((err: Error) => {
+          producer.onError { err =>
             console.log("Received error:")
             console.log(err)
             client.close()
-          })
+          }
       }
     }
 

@@ -2,6 +2,7 @@ package io.scalajs.npm.kafkanode
 
 import io.scalajs.RawOptions
 import io.scalajs.nodejs.events.IEventEmitter
+import io.scalajs.nodejs.Error
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -13,7 +14,7 @@ import scala.scalajs.js.|
   */
 @js.native
 @JSImport("kafka-node", "HighLevelConsumer")
-class HighLevelConsumer(client: Client, payloads: js.Array[Payload], options: ConsumerOptions | RawOptions)
+class HighLevelConsumer(client: Client, requests: js.Array[FetchRequest], options: ConsumerOptions | RawOptions)
     extends IEventEmitter {
 
   /**
@@ -34,20 +35,20 @@ class HighLevelConsumer(client: Client, payloads: js.Array[Payload], options: Co
     * @param callback the callback
     * @example consumer.close(force, callback)
     */
-  def close(force: Boolean, callback: js.Function): Unit = js.native
+  def close(force: Boolean, callback: js.Function1[Error, Any]): Unit = js.native
 
   /**
     * Closes the consumer
     * @param callback the callback
     * @example consumer.close(force, callback)
     */
-  def close(callback: js.Function): Unit = js.native
+  def close(callback: js.Function1[Error, Any]): Unit = js.native
 
   /**
     * Commit offset of the current topics manually, this method should be called when a consumer leaves.
     * @example consumer.commit(function(err, data) { .. });
     */
-  def commit(callback: js.Function): Unit = js.native
+  def commit[A](callback: js.Function2[Error, A, Any]): Unit = js.native
 
   /**
     * Pauses the consumer
@@ -61,7 +62,7 @@ class HighLevelConsumer(client: Client, payloads: js.Array[Payload], options: Co
     * @param callback the callback
     * @example consumer.removeTopics(['t1', 't2'], function (err, removed) { .. })
     */
-  def removeTopics(topics: js.Array[String], callback: js.Function): Unit = js.native
+  def removeTopics(topics: js.Array[String], callback: js.Function2[Error, Boolean, Any]): Unit = js.native
 
   /**
     * Resume the consumers

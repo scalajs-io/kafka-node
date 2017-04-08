@@ -19,7 +19,7 @@ class ConsumerGroupTest extends FunSpec {
           info("No Zookeeper host was specified. Set 'ZK_HOST=localhost:2181'")
 
         case Some(zkConnect) =>
-          new ConsumerGroup(createOptions(zkConnect), js.Array("RebalanceTopic", "RebalanceTest"))
+          new ConsumerGroup(options = createOptions(zkConnect), topics = js.Array("RebalanceTopic", "RebalanceTest"))
       }
     }
 
