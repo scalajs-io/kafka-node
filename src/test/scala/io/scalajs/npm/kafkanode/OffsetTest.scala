@@ -22,7 +22,7 @@ class OffsetTest extends FunSpec {
         case Some(zkConnect) =>
           val client = new Client(zkConnect)
           val offset = new Offset(client)
-          val payloads = js.Array(new Payload(topic = "t", partition = 0, time = js.Date.now(), maxNum = 1))
+          val payloads = js.Array(new FetchRequest(topic = "t", partition = 0))
           offset.fetch[js.Any](payloads, (err, data) => {
             info(s"data: ${JSON.stringify(data)}")
             client.close()

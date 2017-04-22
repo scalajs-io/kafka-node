@@ -78,7 +78,7 @@ class ProducerTest extends FunSpec {
               console.log("[%d] %s", lineNo, line)
 
               val payloads = js.Array(new ProduceRequest(topic = topic, messages = line))
-              producer.sendAsync(payloads) foreach { _ =>
+              producer.sendFuture(payloads) foreach { _ =>
                 console.log("messages", payloads)
               }
             }
@@ -134,7 +134,7 @@ class ProducerTest extends FunSpec {
           producer.onReady(() => {
             console.log("Received ready:")
 
-            producer.sendAsync(payloads) foreach { data =>
+            producer.sendFuture(payloads) foreach { data =>
               console.log("Received data:")
               console.log(data)
               client.close()

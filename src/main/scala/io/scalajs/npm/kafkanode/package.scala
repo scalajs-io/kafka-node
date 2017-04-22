@@ -3,7 +3,7 @@ package io.scalajs.npm
 import io.scalajs.nodejs.Error
 import io.scalajs.util.PromiseHelper._
 
-import scala.concurrent.Promise
+import scala.concurrent.Future
 import scala.scalajs.js
 
 /**
@@ -22,7 +22,7 @@ package object kafkanode {
       * @see [[Client.close()]]
       */
     @inline
-    def closeAsync(): Promise[Unit] = promiseWithError0[Error](client.close)
+    def closeFuture(): Future[Unit] = promiseWithError0[Error](client.close)
 
   }
 
@@ -36,7 +36,7 @@ package object kafkanode {
       * @see [[Consumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] = {
+    def addTopicsFuture(topics: String, fromOffset: Boolean): Future[js.Any] = {
       promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
     }
 
@@ -44,7 +44,7 @@ package object kafkanode {
       * @see [[Consumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String): Promise[js.Any] = {
+    def addTopicsFuture(topics: String): Future[js.Any] = {
       promiseWithError1[Error, js.Any](consumer.addTopics(topics, _))
     }
 
@@ -52,19 +52,19 @@ package object kafkanode {
       * @see [[Consumer.close()]]
       */
     @inline
-    def closeAsync: Promise[js.Any] = promiseWithError1[Error, js.Any](consumer.close)
+    def closeFuture: Future[js.Any] = promiseWithError1[Error, js.Any](consumer.close)
 
     /**
       * @see [[Consumer.commit()]]
       */
     @inline
-    def commitAsync[T <: js.Any]: Promise[T] = promiseWithError1[Error, T](consumer.commit)
+    def commitFuture[T <: js.Any]: Future[T] = promiseWithError1[Error, T](consumer.commit)
 
     /**
       * @see [[Consumer.removeTopics()]]
       */
     @inline
-    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] = {
+    def removeTopicsFuture(topics: js.Array[String]): Future[Boolean] = {
       promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
     }
 
@@ -99,7 +99,7 @@ package object kafkanode {
       * @see [[HighLevelConsumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String, fromOffset: Boolean): Promise[js.Any] = {
+    def addTopicsFuture(topics: String, fromOffset: Boolean): Future[js.Any] = {
       promiseWithError1[Error, js.Any](consumer.addTopics(topics, _, fromOffset))
     }
 
@@ -107,32 +107,32 @@ package object kafkanode {
       * @see [[HighLevelConsumer.addTopics()]]
       */
     @inline
-    def addTopicsAsync(topics: String): Promise[js.Any] =
+    def addTopicsFuture(topics: String): Future[js.Any] =
     promiseWithError1[Error, js.Any](consumer.addTopics(topics, _))
 
     /**
       * @see [[HighLevelConsumer.close()]]
       */
     @inline
-    def closeAsync: Promise[Unit] = promiseWithError0[Error](consumer.close)
+    def closeFuture: Future[Unit] = promiseWithError0[Error](consumer.close)
 
     /**
       * @see [[HighLevelConsumer.close()]]
       */
     @inline
-    def closeAsync(force: Boolean): Promise[Unit] = promiseWithError0[Error](consumer.close(force, _))
+    def closeFuture(force: Boolean): Future[Unit] = promiseWithError0[Error](consumer.close(force, _))
 
     /**
       * @see [[HighLevelConsumer.commit()]]
       */
     @inline
-    def commitAsync[A]: Promise[A] = promiseWithError1[Error, A](consumer.commit)
+    def commitFuture[A]: Future[A] = promiseWithError1[Error, A](consumer.commit)
 
     /**
       * @see [[HighLevelConsumer.removeTopics()]]
       */
     @inline
-    def removeTopicsAsync(topics: js.Array[String]): Promise[Boolean] = {
+    def removeTopicsFuture(topics: js.Array[String]): Future[Boolean] = {
       promiseWithError1[Error, Boolean](consumer.removeTopics(topics, _))
     }
 
@@ -169,7 +169,7 @@ package object kafkanode {
       * @see [[HighLevelProducer.createTopics()]]
       */
     @inline
-    def createTopicsAsync(topics: js.Array[String], async: Boolean): Promise[Unit] = {
+    def createTopicsFuture(topics: js.Array[String], async: Boolean): Future[Unit] = {
       promiseWithError0[Error](producer.createTopics(topics, async, _))
     }
 
@@ -177,7 +177,7 @@ package object kafkanode {
       * @see [[HighLevelProducer.send()]]
       */
     @inline
-    def sendAsync(payloads: js.Array[ProduceRequest]): Promise[Unit] = {
+    def sendFuture(payloads: js.Array[ProduceRequest]): Future[Unit] = {
       promiseWithError0[Error](producer.send(payloads, _))
     }
 
@@ -205,7 +205,7 @@ package object kafkanode {
       * @see [[Offset.commit()]]
       */
     @inline
-    def commitAsync(groupId: String, payloads: js.Array[Payload]): Promise[js.Any] = {
+    def commitFuture(groupId: String, payloads: js.Array[Payload]): Future[js.Any] = {
       promiseWithError1[Error, js.Any](offset.commit(groupId, payloads, _))
     }
 
@@ -213,7 +213,7 @@ package object kafkanode {
       * @see [[Offset.fetch()]]
       */
     @inline
-    def fetchAsync[T](payloads: js.Array[FetchRequest]): Promise[T] = {
+    def fetchFuture[T](payloads: js.Array[FetchRequest]): Future[T] = {
       promiseWithError1[Error, T](offset.fetch(payloads, _))
     }
 
@@ -221,7 +221,7 @@ package object kafkanode {
       * @see [[Offset.fetchCommits()]]
       */
     @inline
-    def fetchCommitsAsync(groupId: String, payloads: js.Array[FetchRequest]): Promise[js.Any] = {
+    def fetchCommitsFuture(groupId: String, payloads: js.Array[FetchRequest]): Future[js.Any] = {
       promiseWithError1[Error, js.Any](offset.fetchCommits(groupId, payloads, _))
     }
 
@@ -249,7 +249,7 @@ package object kafkanode {
       * @see [[Producer.createTopics()]]
       */
     @inline
-    def createTopicsAsync(topics: js.Array[String], async: Boolean): Promise[js.Any] = {
+    def createTopicsFuture(topics: js.Array[String], async: Boolean): Future[js.Any] = {
       promiseWithError1[Error, js.Any](producer.createTopics(topics, async, _))
     }
 
@@ -257,7 +257,7 @@ package object kafkanode {
       * @see [[Producer.send()]]
       */
     @inline
-    def sendAsync(payloads: js.Array[ProduceRequest]): Promise[Unit] = {
+    def sendFuture(payloads: js.Array[ProduceRequest]): Future[Unit] = {
       promiseWithError0[Error](producer.send(payloads, _))
     }
 

@@ -25,7 +25,7 @@ class ClientTest extends FunSpec {
           val client = new Client(zkConnect)
 
           val producer = new Producer(client)
-          producer.createTopicsAsync(topics = js.Array(topic), async = true) foreach { _ =>
+          producer.createTopicsFuture(topics = js.Array(topic), async = true) foreach { _ =>
             console.log(s"Created topic $topic")
           }
 
