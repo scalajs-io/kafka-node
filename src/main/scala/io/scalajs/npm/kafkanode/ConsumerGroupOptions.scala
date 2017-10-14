@@ -3,7 +3,7 @@ package io.scalajs.npm.kafkanode
 import io.scalajs.RawOptions
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
+
 import scala.scalajs.js.|
 
 /**
@@ -24,7 +24,7 @@ import scala.scalajs.js.|
   * @param zk               put client zk settings if you need them (see Client)
   * @author lawrence.daniels@gmail.com
   */
-@ScalaJSDefined
+
 class ConsumerGroupOptions(var batch: js.UndefOr[String] = js.undefined,
                            var fromOffset: js.UndefOr[String] = js.undefined,
                            var host: js.UndefOr[String] = js.undefined,

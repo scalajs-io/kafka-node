@@ -1,7 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
+
 
 /**
   * Producer Options
@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   * @param partitionerType Partitioner type (default = 0, random = 1, cyclic = 2, keyed = 3), default 0
   * @author lawrence.daniels@gmail.com
   */
-@ScalaJSDefined
+
 class ProducerOptions(var requireAcks: js.UndefOr[Int] = js.undefined,
                       var ackTimeoutMs: js.UndefOr[Int] = js.undefined,
                       var partitionerType: js.UndefOr[Int] = js.undefined)

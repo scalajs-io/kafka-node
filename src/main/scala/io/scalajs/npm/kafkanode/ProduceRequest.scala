@@ -1,7 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
+
 
 /**
   * Produce Request
@@ -17,7 +17,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   *                   </ul>
   * @author lawrence.daniels@gmail.com
   */
-@ScalaJSDefined
+
 class ProduceRequest(var topic: String,
                      var messages: js.Any,
                      var key: js.Any = js.undefined,

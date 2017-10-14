@@ -1,7 +1,7 @@
 package io.scalajs.npm.kafkanode
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
+
 
 /**
   * Consumer Options
@@ -16,7 +16,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   * @param encoding             If set to 'buffer', values will be returned as raw buffer objects.
   * @author lawrence.daniels@gmail.com
   */
-@ScalaJSDefined
+
 class ConsumerOptions(var groupId: js.UndefOr[String] = js.undefined,
                       var autoCommit: js.UndefOr[Boolean] = js.undefined,
                       var autoCommitIntervalMs: js.UndefOr[Int] = js.undefined,
